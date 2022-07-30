@@ -2,7 +2,7 @@ const lieux = {
     CHAMBRE1: {
         id: 'CHAMBRE1',
         name: 'chambre 1',
-        img: '/images/chambre_froide.png',
+        img: '../../images/chambre_froide.png',
         description: 'vous etes dans la chambre froide',
         blocked: true,
         blockedText: 'Il me faut la clé',
@@ -18,7 +18,7 @@ const lieux = {
     CHAMBRE2: {
         id: 'CHAMBRE2',
         name: 'chambre 2',
-        img: '/images/chambre_nuit.png',
+        img: '../../images/chambre_nuit.png',
         description: 'vous etes dans la chambre 2',
         blocked: false,
         blockedText: 'Il manque quelque chose pour ouvrir la porte',

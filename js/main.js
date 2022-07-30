@@ -17,10 +17,10 @@ let etat = '';
 let isBlocked =false;
 
 let gauche = new Image();
-gauche.src = 'images/f-gauche.png';
+gauche.src = '../images/f-gauche.png';
 
 let droite = new Image();
-droite.src = 'images/f-droite.png';
+droite.src = '../images/f-droite.png';
 
 
 /* ================================================ */
