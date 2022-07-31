@@ -1,4 +1,6 @@
-/*======POUR ECRIRE LES TEXTES======== */
+/* ================================================ */
+/*=============POUR ECRIRE LES TEXTES============== */
+/* ================================================ */
 function printAtWordWrap( context , text, x, y, lineHeight, fitWidth)
 {
     fitWidth = fitWidth || 0;
@@ -8,16 +10,16 @@ function printAtWordWrap( context , text, x, y, lineHeight, fitWidth)
         context.fillText( text, x, y );
         return;
     }
-    var words = text.split(' ');
-    var currentLine = 0;
-    var idx = 1;
+    let words = text.split(' ');
+    let currentLine = 0;
+    let idx = 1;
     while (words.length > 0 && idx <= words.length)
     {
-        var str = words.slice(0,idx).join(' ');
-        var w = context.measureText(str).width;
+        const str = words.slice(0, idx).join(' ');
+        const w = context.measureText(str).width;
         if ( w > fitWidth )
         {
-            if (idx==1)
+            if (idx===1)
             {
                 idx=2;
             }
@@ -31,4 +33,20 @@ function printAtWordWrap( context , text, x, y, lineHeight, fitWidth)
     }
     if  (idx > 0)
         context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
+}
+
+/* ================================================ */
+/*===============EFFACER LE MESSAGE =============== */
+/* ================================================ */
+function removeMessage()
+{
+    setTimeout(() => {
+        message = '';
+    }, 3000);
+}
+
+function configMessage(text, color, positionX, positionY)
+{
+    ctx.fillStyle = color;
+    ctx.fillText(text, positionX, positionY);
 }
