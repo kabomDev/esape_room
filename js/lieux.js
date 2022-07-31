@@ -1,30 +1,29 @@
 const lieux = {
-    CHAMBRE1: {
-        id: 'CHAMBRE1',
-        name: 'chambre 1',
+    CHAMBRE_FROIDE: {
+        id: 'CHAMBRE_FROIDE',
+        name: 'Chambre froide',
         img: '../../images/chambre_froide.png',
         description: 'vous etes dans la chambre froide',
         blocked: true,
         blockedText: 'Il me faut la clé',
         issues: {
-            ArrowLeft: 'CHAMBRE2',
-            ArrowRight: 'CHAMBRE3',
+            ArrowUp: 'COULOIR',
         },
         objets: [
             'poignee',
             'porte'
         ]
     },
-    CHAMBRE2: {
-        id: 'CHAMBRE2',
-        name: 'chambre 2',
-        img: '../../images/chambre_nuit.png',
-        description: 'vous etes dans la chambre 2',
+    COULOIR: {
+        id: 'COULOIR',
+        name: 'Couloir',
+        img: '../../images/couloir.png',
+        description: 'vous etes dans la couloir',
         blocked: false,
         blockedText: 'Il manque quelque chose pour ouvrir la porte',
         issues: {
-            ArrowLeft: 'CHAMBRE3',
-            ArrowRight: 'CHAMBRE1',
+            ArrowLeft: 'CUISINE',
+            ArrowDown: 'CHAMBRE_FROIDE',
         },
         objets: [
             'couteau',
@@ -32,16 +31,15 @@ const lieux = {
         ],
         
     },
-    CHAMBRE3: {
-        id: 'CHAMBRE3',
-        name: 'chambre 3',
-        description: 'vous etes dans la chambre 3',
+    CUISINE: {
+        id: 'CUISINE',
+        name: 'Cuisine',
+        img: '../../images/cuisine.png',
+        description: 'vous etes dans la cuisine',
         blocked: false,
         blockedText: '',
         issues: {
-            ArrowLeft: 'CHAMBRE1',
-            ArrowRight: 'CHAMBRE2',
-            ArrowUp: 'CHAMBRE4',
+            ArrowRight: 'COULOIR',
         }
     },
     CHAMBRE4: {

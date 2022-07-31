@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 canvas.width = 900;
 canvas.height = 600;
 const ctx = canvas.getContext('2d');
-let normal = ctx.font = '15px Roboto'
+ctx.font = '15px Roboto';
 /* ================================================ */
 /* =================VARIABLES GLOBALES======================== */
 /* ================================================ */
@@ -34,17 +34,16 @@ function seDeplacer(e)
     let input = e.key;
 
     //pour se deplacer dans les differentes pieces
-    if (lieux[endroitActuel].issues != undefined) {
+    if (lieux[endroitActuel].issues !== undefined) {
         Object.entries(lieux[endroitActuel].issues).forEach(function([key,value]){
             if (isBlocked) {
                 message = lieux[endroitActuel].blockedText;
             }else
             {
-                if (input == key && lieux[value].blocked == false) {
+                if (input === key && lieux[value].blocked === false) {
                     goTo(value);
-                }else if(input == key && lieux[value].blocked == true)
+                }else if(input === key && lieux[value].blocked === true)
                 {
-                    console.log(value);
                     message = lieux[value].blockedText;
                 }
             }
@@ -52,26 +51,27 @@ function seDeplacer(e)
         removeMessage();
     }
 
-    if (e.key == 'p') {
+    if (e.key === 'p') {
         etat = 'PRENDRE';
         return;
     }
 
-    if (e.key == 'u') {
+    if (e.key === 'u') {
         etat = 'UTILISER';
         return;
     }
     
     //si notre etat est egal a PRENDRE
-    if (etat == 'PRENDRE') {
+    if (etat === 'PRENDRE') {
         message = '';
-        if (lieux[endroitActuel].objets != undefined) {
+        if (lieux[endroitActuel].objets !== undefined) {
             input -= 1;
             Object.entries(lieux[endroitActuel].objets).forEach(function([key,value]){
-                if (input == key)
+                let _key = parseInt(key);
+                if (input === _key)
                 {
                     //si l'objet a un inventaire a false alors on affiche le texte correspondant
-                    if (objetsVisibles[value].inventaire == false) 
+                    if (objetsVisibles[value].inventaire === false)
                     {
                         message = objetsVisibles[value].texte;
                         removeMessage();
@@ -80,7 +80,7 @@ function seDeplacer(e)
                     else
                     {
                         addToInventory(value);
-                        lieux[endroitActuel].objets.splice(key,1);
+                        lieux[endroitActuel].objets.splice(parseInt(key),1);
                         message = objetsVisibles[value].texte;
                         removeMessage();
                     }
@@ -91,9 +91,9 @@ function seDeplacer(e)
     }
 
     //si notre etat est egal a UTILISER
-    if (etat == 'UTILISER') {
+    if (etat === 'UTILISER') {
         //si notre inventaire n'est pas vide
-        if (inventaire.length != 0) {
+        if (inventaire.length !== 0) {
             //on fait -1 pour tomber sur le bon index
             input -= 1;
             inventaire.forEach(function(value){
@@ -104,18 +104,19 @@ function seDeplacer(e)
     }
 
     //si notre etat est egal a UTILISERSUR
-    if (etat == 'UTILISERSUR') {
-        if (lieux[endroitActuel].objets != 0) {
+    if (etat === 'UTILISERSUR') {
+        if (lieux[endroitActuel].objets !== 0) {
             //on fait -1 pour tomber sur le bon index
             input -= 1;
             Object.entries(lieux[endroitActuel].objets).forEach(function([key,value])
             {
+                let _key = parseInt(key);
                 //si la touche correspond au numero
-                if (input == key)
+                if (input === _key)
                 {
                     useObjectTo(inHand, value, endroitActuel);
                 }
-            });
+            })
         }
     }
 } 
@@ -134,7 +135,7 @@ function addToInventory(obj)
 }
 
 /*======fonction RETIRER DE INVENTAIRE======== */
-function removeFromInventory(obj)
+function removeFromInventory()
 {
     for (let index = 0; index < inventaire.length; index++) {
         inventaire.splice(index,1);
@@ -156,8 +157,6 @@ function useObjectTo(objInHand, objInRoom, room)
             delete objetsVisibles[objInRoom];
             lieux[endroitActuel].objets.splice(objInRoom,1);
         }
-        console.log(objetsVisibles);
-        console.log(lieux[endroitActuel].objets);
     }
     else{
         message = lieux[objetsVisibles[objInRoom].texteNoCombinaison];
@@ -181,16 +180,16 @@ function removeMessage()
 /* =================================================== */
 function translateDirection(direction)
 {
-    if (direction == 'ArrowLeft') {
+    if (direction === 'ArrowLeft') {
         return 'gauche';
     }
-    if (direction == 'ArrowRight') {
+    if (direction === 'ArrowRight') {
         return 'droite';
     }
-    if (direction == 'ArrowUp') {
+    if (direction === 'ArrowUp') {
         return 'haut';
     }
-    if (direction == 'ArrowDown') {
+    if (direction === 'ArrowDown') {
         return 'bas';
     }
 }
@@ -223,7 +222,7 @@ function load()
     document.addEventListener('keydown', seDeplacer, false);
 
     //charge le lieu de depart
-    endroitActuel = 'CHAMBRE1';
+    endroitActuel = 'CHAMBRE_FROIDE';
     isBlocked = lieux[endroitActuel].blocked;
 }
 
@@ -242,13 +241,13 @@ function draw()
     let piece = new Image();
 
     //PIECES
-    if (endroitActuel == 'CHAMBRE1') {
-        piece.src = lieux.CHAMBRE1.img;
-    }else if (endroitActuel == 'CHAMBRE2') {
-        piece.src = lieux.CHAMBRE2.img;
-    }else if (endroitActuel == 'CHAMBRE3') {
-        color = 'blue';    
-    }else if (endroitActuel == 'CHAMBRE4') {
+    if (endroitActuel === 'CHAMBRE_FROIDE') {
+        piece.src = lieux.CHAMBRE_FROIDE.img;
+    }else if (endroitActuel === 'COULOIR') {
+        piece.src = lieux.COULOIR.img;
+    }else if (endroitActuel === 'CUISINE') {
+        piece.src = lieux.CUISINE.img;
+    }else if (endroitActuel === 'CHAMBRE4') {
         color = 'purple';
     }
 
@@ -267,7 +266,7 @@ function draw()
     
     for (let i = 0; i < inventaire.length; i++) {
         ctx.fillStyle = 'white';
-        printAtWordWrap(ctx,`[ ${parseInt(i)+1} ] ${inventaire[i]}`, 100,470 + espace,20,500);
+        printAtWordWrap(ctx,`[ ${i+1} ] ${inventaire[i]}`, 100,470 + espace,20,500);
         espace += 20;
     }
 
@@ -284,7 +283,7 @@ function draw()
     //affiche les issues si le lieux n'est pas bloqué
     if (lieux[endroitActuel].issues) {
         let direction = '';
-        if (isBlocked == false) {
+        if (isBlocked === false) {
             Object.entries(lieux[endroitActuel].issues).forEach(function([key,value]){
             
                 direction = translateDirection(key);
@@ -303,14 +302,14 @@ function draw()
     }
 
     //Nos actions par rapport a notre etat
-    if (etat == '' && lieux[endroitActuel].objets) {
+    if (etat === '' && lieux[endroitActuel].objets) {
         if (lieux[endroitActuel].objets.length !== 0) {
             ctx.fillStyle = 'green';
             ctx.fillText('Commande :',400,550);
         
             ctx.fillText('[ P ] Prendre',400,570);
             
-            if (inventaire.length != 0) {
+            if (inventaire.length !== 0) {
                 ctx.fillText('[ U ] Utiliser',400,590)
             }
         }
@@ -320,15 +319,15 @@ function draw()
     /* =================ETATS======================== */
     /* ================================================ */ 
 
-    if (etat == 'PRENDRE'){
+    if (etat === 'PRENDRE'){
         message = 'Que voulez-vous prendre ? Tapez son numéro';
     }
 
-    if (etat == 'UTILISER') {
+    if (etat === 'UTILISER') {
         message = 'Quel objet voulez-vous utiliser ?';
     }
 
-    if (etat == 'UTILISERSUR') {
+    if (etat === 'UTILISERSUR') {
         message = "sur quoi voulez-vous utiliser l'objet " + inHand;
     }
     
