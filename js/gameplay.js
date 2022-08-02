@@ -10,6 +10,11 @@ let inventory = [];
 let inHand = '';
 let etat = '';
 
+let isBlocked;
+
+let musicGame = new Audio("/sounds/musique1.mp3");
+let playsound = configMusic(musicGame, 0.05);
+
 /* ====================================================== */
 /*==============INPUT DU CLAVIER DETECTE================= */
 /* ====================================================== */
@@ -173,4 +178,13 @@ function objectsVisibles()
             espace += 20;
         }
     });
+}
+
+/* ====================================================== */
+/*===============SON ET MUSIQUE========================== */
+/* ====================================================== */
+function configMusic(music, volume)
+{
+    music.volume = volume;
+    return music;
 }

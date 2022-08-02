@@ -4,11 +4,18 @@ canvas.height = 600;
 const ctx = canvas.getContext('2d');
 ctx.font = '15px Roboto';
 
-let isBlocked;
-
 /*======UPDATE======== */
 function update()
 {
+    //joue la musique quand la page est chargé
+    window.addEventListener('load', () => {
+        playsound.play();
+    })
+
+    //si la musique est terminé, relance le play
+    if (playsound.ended) {
+        playsound.stop();
+    }
 
 }
 
@@ -131,10 +138,8 @@ function load()
 function animate()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
     update();
     draw();
-
     requestAnimationFrame(animate);
 }
 
